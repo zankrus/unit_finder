@@ -17,13 +17,22 @@ def unit_finder(matrix: list, x: int, y: int) -> True:
     if matrix[x][y] == 1:
         matrix[x][y] = 0
         try:
-
             unit_finder(matrix, x + 1, y)  # down
+        except IndexError:
+            pass
+        try:
             unit_finder(matrix, x - 1, y)  # up
+        except IndexError:
+            pass
+        try:
             unit_finder(matrix, x, y + 1)  # right
+        except IndexError:
+            pass
+        try:
             unit_finder(matrix, x, y - 1)  # left
         except IndexError:
             pass
+
 
         return True
 
@@ -37,3 +46,9 @@ def calculate(matrix: list) -> int:
             if unit_finder(matrix, x, y):
                 counter += 1
     return counter
+
+
+matrix = matrix_from_file('input_file.txt')
+print('Введена матрица')
+print(matrix)
+print('Количество кратеров : ' + str(calculate(matrix)))
